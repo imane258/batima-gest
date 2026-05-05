@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Batima-Gest 🏢
+### Plateforme de Gestion de Copropriété
 
-## Getting Started
+## 👥 Groupe
+- **Étudiant 1** : [Imene Chekaba]
+- **Étudiant 2** : [Imene Isaad]
+- **Étudiant 3** : [Asma Layadi]
 
-First, run the development server:
+## 🔗 Liens
+- **Application** : https://batima-gest-lemon.vercel.app
+- **GitHub** : https://github.com/imane258/batima-gest
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎯 Mapping du Thème : Copropriété (Batima-Gest)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Élément | Description |
+|--------|-------------|
+| **Table A** | `residents` — Les résidents de la copropriété (gérés via Supabase Auth) |
+| **Table B** | `parties_communes` — Les espaces communs consultables (Ascenseur, Parking, Jardin...) |
+| **Table C** | `signalements` — Les signalements de pannes créés par les résidents, reliant Table A et Table B avec une date et un statut |
+| **Fichier** | Photo du problème signalé (JPG/PNG), uploadée dans Supabase Storage (bucket `signalements-photos`) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Identifiants de Test
+- **Email** : ahmed.test@batima-gest.dz
+- **Mot de passe** : Test1234!
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Analyse d'Architecture
 
-## Learn More
+### 1. Pourquoi Vercel + Supabase est plus logique financièrement qu'un serveur classique ? (CAPEX vs OPEX)
 
-To learn more about Next.js, take a look at the following resources:
+Un serveur physique classique implique des coûts **CAPEX** (Capital Expenditure) élevés : achat de machines, installation, infrastructure réseau, climatisation de la salle serveur. Ces investissements sont lourds dès le départ, avant même d'avoir un seul utilisateur.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Avec **Vercel + Supabase**, on passe à un modèle **OPEX** (Operational Expenditure) : on paie uniquement ce qu'on consomme, mensuellement. Le plan gratuit de Supabase suffit pour lancer ce projet, et Vercel offre un hébergement gratuit avec CI/CD intégré. Pour une startup ou un projet académique, ce modèle est bien plus logique car il réduit le risque financier initial à zéro.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Comment Vercel gère-t-il la scalabilité par rapport à un Data Center physique ?
 
-## Deploy on Vercel
+Un Data Center physique nécessite une infrastructure lourde : serveurs rack, système de climatisation, alimentation redondante, maintenance humaine. La scalabilité est limitée par le matériel disponible et demande du temps (commande, installation).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Vercel** utilise une architecture **Serverless** et un réseau CDN mondial. Chaque page ou API est déployée comme une fonction indépendante qui s'exécute à la demande. Si 1000 utilisateurs se connectent simultanément, Vercel scale automatiquement sans aucune intervention. Il n'y a pas de serveur à gérer, pas de climatisation, pas de rack — tout est abstrait dans le cloud.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Données Structurées vs Données Non-Structurées dans Batima-Gest
+
+**Données structurées** : toutes les informations stockées dans les tables PostgreSQL de Supabase — les résidents (`residents`), les parties communes (`parties_communes`) et les signalements (`signalements`). Ces données sont organisées en lignes et colonnes avec des types définis (uuid, text, timestamp...).
+
+**Données non-structurées** : les photos des problèmes signalés (ascenseur en panne, fuite d'eau...) uploadées par les résidents. Ces fichiers image (JPG, PNG) sont stockés dans **Supabase Storage** — ils n'ont pas de structure tabulaire et sont référencés uniquement par leur URL dans la colonne `photo_url` de la table `signalements`.
