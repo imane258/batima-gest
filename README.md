@@ -3,7 +3,7 @@
 
 ## 👥 Groupe
 - **Étudiant 1** : [Imene Chekaba]
-- **Étudiant 2** : [Imene Isaad]
+- **Étudiant 2** : [Imene Issad]
 - **Étudiant 3** : [Asma Layadi]
 
 ## 🔗 Liens
