@@ -9,7 +9,7 @@
 ## 🔗 Liens
 - **Application** : https://batima-gest-lemon.vercel.app
 - **GitHub** : https://github.com/imane258/batima-gest
--**rapportPDF** : https://drive.google.com/file/d/1iwmDeZbWanUlF7FOAFzNfKCxZnFOIEL1/view?usp=drive_link
+- **rapportPDF** : https://drive.google.com/file/d/1iwmDeZbWanUlF7FOAFzNfKCxZnFOIEL1/view?usp=drive_link
 
 ## 🎯 Mapping du Thème : Copropriété (Batima-Gest)
 
